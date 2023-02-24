@@ -8,4 +8,4 @@ Now is supported Demonlist search for name and GDPS custom code Demonlist with a
 Fixed search levels
 Support Platform level and Custom settings for GDPS.
 
-Examples in main.py
+Examples in server.py
