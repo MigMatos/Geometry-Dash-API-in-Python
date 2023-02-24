@@ -9,10 +9,5 @@
 		"uploadGJMessage":"uploadGJMessage20.php",
 		"whoRatedBot":"tools/bot/whoRatedBot.php",
 		"songAddBot":"tools/bot/songAddBot.php"
-	},
-	"alias":{
-		"whoRatedBot":"level:level",
-		"songAddBot":"link:link,name:name,author:author"
-	},
-	"texture_pack":"official"
+	}
 }
