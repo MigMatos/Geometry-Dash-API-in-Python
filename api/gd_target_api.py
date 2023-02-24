@@ -101,7 +101,7 @@ async def search_level(server="robtop",query='"str":""',page=0):
 msg_tar = ["uploadGJMessage"]
 
 
-async def send_code(server="robtop",titulo="Code",code="Your code is: 123456",accountIDtarget=0):
+async def send_code(server="robtop",title="Code",message="Hello world",accountIDtarget=0):
     key = "14251"
     def xor_cipher(string: str, key: str) -> str:
         return ("").join(chr(ord(x) ^ ord(y)) for x, y in zip(string, itertools.cycle(key)))
@@ -112,8 +112,8 @@ async def send_code(server="robtop",titulo="Code",code="Your code is: 123456",ac
         "accountID": servers_target[server]['accountID'],
         "gjp": servers_target[server]['gjp'],
         "toAccountID": accountIDtarget,
-        "subject": base64.b64encode(titulo.encode()).decode(),
-        "body": base64.urlsafe_b64encode(code.encode()).decode(),
+        "subject": base64.b64encode(title.encode()).decode(),
+        "body": base64.urlsafe_b64encode(message.encode()).decode(),
         "secret": servers_target[server]['secret']
     }
     try:dd_data = request_loggin.post(f"{servers_target[server]['link']}{get_pages(server,msg_tar[0])}", data=data, headers=headers)
