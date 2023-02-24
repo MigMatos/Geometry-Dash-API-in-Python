@@ -7,3 +7,5 @@ You can add GDPS in api/settings.json
 Now is supported Demonlist search for name and GDPS custom code Demonlist with api/api_level.py
 Fixed search levels
 Support Platform level and Custom settings for GDPS.
+
+Examples in main.py
