@@ -1,13 +1,6 @@
 from api.utils_api_gd import messageState,commentHistoryState,friendState
-#import asyncio 
-
-#response = """""""
-#for i in range(1):
-    #strres = response.split(f':')
-    #print(strres)
 
 api_replace = ["1:",":2:",":3:",":4:",":5:",":6:",":8:",":9:",":10:",":11:",":12:",":13:",":14:",":15:",":16:",":17:",":18:",":19:",":25:",":26:",":27:",":28:",":29:",":30:",":31:",":35:",":36:",":37:",":38:",":39:",":40:",":41:",":42:",":43:",":44:",":45:",":46:",":47:",":48:",":49:",":50:"]
-
 structure_level = {
     1:"username",
     2:"playerID",
@@ -47,40 +40,35 @@ structure_level = {
     44:"twitter",
     45:"twitch",
     46:"diamonds",
+    47:"deathEffect",
     48:"deathEffect",
     49:"moderator",
     50:"commentHistory"
     }
-
 i=0
-async def get_profile(response):
-    try:index = response.index('1:')
+async def get_profile(response,profile=""):
+    try:index_data = str(response.lower()).index('1:{}'.format(profile))
     except:raise Exception("02_nodata")
-    response=response[index:]
+    final = None
+    try:final = index_data + str(response[index_data:]).index('|')
+    except:pass
+    if final == None:
+        try:final = index_data + str(response[index_data:]).index('#')
+        except:pass
+    response = response[index_data:final]
     strres = response.split(f':')
-    #print(strres)
-    for structure in structure_level.items():
-        api_num, api_str = structure
-
-        for i in range(0,len(strres),2):
-            if str(strres[i]) == str(api_num):
-                strres[i] = api_str
     text_api = ""
-    range_api = 100
-    for i in range(0,range_api,2):
+    for i in range(0,len(strres),2):
         try:
+            strres[i] = structure_level[int(strres[i])]
             if strres[i] == "messages":strres[i+1]=await messageState(int(strres[i+1]))
             elif strres[i] == "commentHistory":strres[i+1]=await commentHistoryState(int(strres[i+1]))
             elif strres[i] == "friendRequests":strres[i+1]=await friendState(int(strres[i+1]))
             elif strres[i+1] == "":strres[i+1]="<None>"
-            try:strres[i+1] = int(strres[i+1])
-            except ValueError:strres[i+1] = f'"{strres[i+1]}"'
-            text_api = f'"{strres[i]}":{strres[i+1]},\n' + text_api
-        except IndexError:
-            if text_api=="":raise Exception("02_nodata")
-            text_api = text_api[:-2] + ""
-            break
+            try:text_api = text_api + f'"{strres[i]}":{int(strres[i+1])},\n'
+            except:text_api = text_api + f'"{strres[i]}":"{strres[i+1]}",\n'
+        except KeyError:text_api = text_api + f'"{strres[i]}":"{strres[i+1]}",\n'
+        except IndexError:break
+    text_api = text_api[:-2] + ""
     text_api = '{\n'+f'{text_api}'+'\n}'
     return text_api
-
-#asyncio.run(get_profile(response))
