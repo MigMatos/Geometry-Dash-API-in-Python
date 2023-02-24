@@ -50,7 +50,7 @@ headers = {'User-Agent': '','Connection': 'Close'}
 request_loggin = requests.Session()
 
 async def get_search_profile(profile,server="robtop"):
-    if server == "gdpseditor22":
+    if server in {"custom_22_gdps"}:
         data = {
         "gameVersion": servers_target[server]['gameVersion'],
         "binaryVersion": servers_target[server]['binaryVersion'],
