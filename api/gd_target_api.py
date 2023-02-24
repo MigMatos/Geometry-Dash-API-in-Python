@@ -101,7 +101,7 @@ async def search_level(server="robtop",query='"str":""',page=0):
 msg_tar = ["uploadGJMessage"]
 
 
-async def send_code(server="robtop",title="Code",message="Hello world",accountIDtarget=0):
+async def send_message(server="robtop",title="Hi",message="Hello world",accountIDtarget=0):
     key = "14251"
     def xor_cipher(string: str, key: str) -> str:
         return ("").join(chr(ord(x) ^ ord(y)) for x, y in zip(string, itertools.cycle(key)))
